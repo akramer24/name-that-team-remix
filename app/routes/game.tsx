@@ -5,6 +5,7 @@ import { GameStatuses } from "types";
 import teamsData from "~/data/teams.json";
 import dummy from "~/data/dummy.json";
 import Modal from "~/components/Modal";
+import Button from "~/components/Button";
 
 export const loader = async () => {
   const allDummyGames = dummy.games;
@@ -60,7 +61,7 @@ export default function Game() {
     <main className="flex flex-col">
       <section className="flex flex-col items-center p-2 space-y-4">
         <div
-          className="rounded border border-gray-200 p-1 text-center space-y-1 w-10/12"
+          className="rounded border border-rounded shadow-md p-1 text-center space-y-1 w-10/12"
           style={{ maxWidth: 380 }}
         >
           <h3 className="text-3xl">Clue #{clueNumber}</h3>
@@ -105,29 +106,30 @@ export default function Game() {
             </div>
           )}
           <div className="flex space-x-2">
-            <button
-              className="flex-1 border border-gray-200 disabled:text-gray-100 disabled:bg-gray-400 disabled:cursor-not-allowed"
+            <Button
               disabled={clueNumber === 1}
+              grow
               onClick={() => handlePrev()}
             >
               Prev.
-            </button>
+            </Button>
             {viewingHistory ? (
-              <button
-                className="flex-1 border border-gray-200 disabled:text-gray-100 disabled:bg-gray-400 disabled:cursor-not-allowed"
+              <Button
                 disabled={gameOver}
+                grow
                 onClick={() => handleNext()}
               >
                 Next
-              </button>
+              </Button>
             ) : (
-              <button
-                className="flex-1 bg-blue-400 text-gray-100 disabled:bg-gray-400 disabled:cursor-not-allowed"
+              <Button
                 disabled={!guess.length || gameOver}
+                grow
                 onClick={() => handleSubmitGuess(guess)}
+                type="primary"
               >
                 Submit Guess
-              </button>
+              </Button>
             )}
           </div>
           {!!guesses.length && (

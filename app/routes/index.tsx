@@ -12,9 +12,11 @@ export default function Index() {
         </p>
         <p>You guess the team that matches</p>
         <p>Up to the task?</p>
-        <Link to="/game" className="bg-blue-400 text-gray-100 p-1 rounded">
-          Play
-        </Link>
+        <div className="flex justify-center">
+          <Link to="/game" className="bg-blue-600 text-gray-100 p-2 rounded hover:bg-blue-400 transition">
+            PLAY
+          </Link>
+        </div>
       </section>
     </main>
   );
