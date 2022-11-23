@@ -1,0 +1,70 @@
+{
+  "games": [
+    {
+      "clues": [
+        "They last appeared in the NCAA tournament in 2022 as a 2 seed.",
+        "In non-conference play, they have beaten Jacksonville, USC Upstate, Delaware, and Bellarmine.",
+        "Last time out, they beat Bellarmine, 74-57.",
+        "They play in the ACC.",
+        "Kyle Filipowski leads the team with a 29.9% usage rate.",
+        "They are coached by Jon Scheyer."
+      ],
+      "answer": "Duke"
+    },
+    {
+      "clues": [
+        "They last appeared in the NCAA tournament in 2022 as a 2 seed.",
+        "In non-conference play, they have beaten Howard, Duquesne, and South Carolina St..",
+        "Last time out, they lost to Gonzaga, 88-72.",
+        "They play in the SEC.",
+        "Antonio Reeves leads the team with a 23.2% usage rate.",
+        "They are coached by John Calipari."
+      ],
+      "answer": "Kentucky"
+    },
+    {
+      "clues": [
+        "They last appeared in the NCAA tournament in 2022 as a 1 seed.",
+        "In non-conference play, they have beaten North Florida, Michigan St., and Kentucky.",
+        "Last time out, they beat Kentucky, 88-72.",
+        "They play in the WCC.",
+        "Drew Timme leads the team with a 29.6% usage rate.",
+        "They are coached by Mark Few."
+      ],
+      "answer": "Gonzaga"
+    },
+    {
+      "clues": [
+        "They last appeared in the NCAA tournament in 2022 as a 6 seed.",
+        "In non-conference play, they have beaten UTEP, Houston Christian, Gonzaga, and Northern Arizona.",
+        "Last time out, they beat Northern Arizona, 73-48.",
+        "They play in the B12.",
+        "Timmy Allen leads the team with a 26.7% usage rate.",
+        "They are coached by Chris Beard."
+      ],
+      "answer": "Texas"
+    },
+    {
+      "clues": [
+        "They last appeared in the NCAA tournament in 2015 as a 16 seed.",
+        "They zero non-conference wins.",
+        "Last time out, they lost to Fairleigh Dickinson, 77-74.",
+        "They play in the MAAC.",
+        "Elijah Buchanan leads the team with a 29.8% usage rate.",
+        "They are coached by RaShawn Stores."
+      ],
+      "answer": "Manhattan"
+    },
+    {
+      "clues": [
+        "They last appeared in the NCAA tournament in 2009 as a 15 seed.",
+        "In non-conference play, they have beaten Marist.",
+        "Last time out, they lost to Sacred Heart, 75-60.",
+        "They play in the AE.",
+        "Jacob Falko leads the team with a 27.1% usage rate.",
+        "They are coached by Levell Sanders."
+      ],
+      "answer": "Binghamton"
+    }
+  ]
+}
