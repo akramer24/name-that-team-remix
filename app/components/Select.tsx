@@ -1,20 +1,36 @@
 import classNames from "classnames";
-import { ChangeEvent, FocusEvent, KeyboardEvent, useEffect, useMemo, useRef, useState } from "react";
+import {
+  ChangeEvent,
+  FocusEvent,
+  KeyboardEvent,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
 type FilterFn = (value: string, choice: string) => boolean;
 
 interface SelectProps {
-  choices: Array<string>,
-  disableOpen: boolean,
-  filterFn: FilterFn,
-  onSelect: Function,
-  open?: boolean,
-  placeholder?: string,
-  readOnly?: boolean,
-  value?: string | undefined,
+  choices: Array<string>;
+  disableOpen: boolean;
+  filterFn: FilterFn;
+  onSelect: Function;
+  open?: boolean;
+  placeholder?: string;
+  readOnly?: boolean;
+  value?: string | undefined;
 }
 
-export default function Select({ choices, disableOpen, filterFn, onSelect, placeholder = "Search...", readOnly = false, value: passedValue }: SelectProps) {
+export default function Select({
+  choices,
+  disableOpen,
+  filterFn,
+  onSelect,
+  placeholder = "Search...",
+  readOnly = false,
+  value: passedValue,
+}: SelectProps) {
   const [value, setValue] = useState<string | undefined>(passedValue);
   const [showDropdown, setShowDropdown] = useState<Boolean>(false);
   const [activeChoiceIndex, setActiveChoiceIndex] = useState<number>(0);
@@ -25,15 +41,14 @@ export default function Select({ choices, disableOpen, filterFn, onSelect, place
   useEffect(() => {
     setValue(passedValue);
   }, [passedValue]);
-  
+
   const filteredChoices = useMemo(
-    () => (
+    () =>
       value && value.length
-        ? choices.filter(c => filterFn(value, c))
-        : choices
-    ),
+        ? choices.filter((c) => filterFn(value, c))
+        : choices,
     [choices, value]
-  )
+  );
 
   const handleSearch = (evt: ChangeEvent<HTMLInputElement>) => {
     setValue(evt.target.value);
@@ -45,27 +60,32 @@ export default function Select({ choices, disableOpen, filterFn, onSelect, place
     setShowDropdown(false);
     setActiveChoiceIndex(0);
     onSelect && onSelect(choice);
-  }
+  };
 
   const handleKeyDown = (evt: KeyboardEvent<HTMLInputElement>) => {
-    if (showDropdown && (evt.key === 'ArrowUp' || evt.key === 'ArrowDown')) {
+    if (showDropdown && (evt.key === "ArrowUp" || evt.key === "ArrowDown")) {
       evt.preventDefault();
       setActiveChoiceIndex((old: number) => {
-        const newIndex = evt.key === 'ArrowUp' ? Math.max(0, old - 1) : Math.min(filteredChoices.length - 1, old + 1);
-        dropdownRef.current?.querySelector<HTMLElement>(`[data-index="${newIndex}"]`)?.focus();
+        const newIndex =
+          evt.key === "ArrowUp"
+            ? Math.max(0, old - 1)
+            : Math.min(filteredChoices.length - 1, old + 1);
+        dropdownRef.current
+          ?.querySelector<HTMLElement>(`[data-index="${newIndex}"]`)
+          ?.focus();
         return newIndex;
-      })
-    } else if (evt.key === 'Enter') {
+      });
+    } else if (evt.key === "Enter") {
       handleSelect(filteredChoices[activeChoiceIndex]);
       inputRef.current?.blur();
     }
-  }
+  };
 
   const handleBlur = (evt: FocusEvent<HTMLInputElement>) => {
     if (!containerRef.current?.contains(evt.relatedTarget)) {
       setShowDropdown(false);
     }
-  }
+  };
 
   return (
     <div className="flex flex-col" style={{ maxWidth: 300 }} ref={containerRef}>
@@ -90,12 +110,9 @@ export default function Select({ choices, disableOpen, filterFn, onSelect, place
             {filteredChoices.map((choice, index) => (
               <p
                 key={choice}
-                className={
-                  classNames(
-                    'cursor-default p-1 hover:bg-blue-100',
-                    { 'bg-blue-200': activeChoiceIndex === index }
-                  )
-                }
+                className={classNames("cursor-default p-1 hover:bg-blue-100", {
+                  "bg-blue-200": activeChoiceIndex === index,
+                })}
                 data-index={index.toString()}
                 onClick={() => handleSelect(choice)}
                 onFocus={() => inputRef.current?.focus()}
@@ -108,5 +125,5 @@ export default function Select({ choices, disableOpen, filterFn, onSelect, place
         </div>
       )}
     </div>
-  )
+  );
 }

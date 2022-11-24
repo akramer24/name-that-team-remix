@@ -13,7 +13,10 @@ export default function Index() {
         <p>You guess the team that matches</p>
         <p>Up to the task?</p>
         <div className="flex justify-center">
-          <Link to="/game" className="bg-blue-600 text-gray-100 p-2 rounded hover:bg-blue-400 transition">
+          <Link
+            to="/game"
+            className="bg-blue-600 text-gray-100 p-2 rounded hover:bg-blue-400 transition"
+          >
             PLAY
           </Link>
         </div>

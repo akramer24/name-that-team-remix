@@ -66,7 +66,8 @@ export default function Game() {
             choices={choices}
             disableOpen={viewingHistory}
             filterFn={(value, choice) =>
-              choice.toLowerCase().startsWith(value.toLowerCase()) && !guesses.includes(choice)
+              choice.toLowerCase().startsWith(value.toLowerCase()) &&
+              !guesses.includes(choice)
             }
             onSelect={setGuess}
             value={viewingHistory ? guesses[clueNumber - 1] : guess}
@@ -80,11 +81,7 @@ export default function Game() {
               Prev.
             </Button>
             {viewingHistory ? (
-              <Button
-                disabled={gameOver}
-                grow
-                onClick={() => handleNext()}
-              >
+              <Button disabled={gameOver} grow onClick={() => handleNext()}>
                 Next
               </Button>
             ) : (
