@@ -1,11 +1,12 @@
 import { json } from "@remix-run/node";
 import { useLoaderData } from "@remix-run/react";
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import { GameStatuses } from "types";
 import teamsData from "~/data/teams.json";
 import dummy from "~/data/dummy.json";
 import Modal from "~/components/Modal";
 import Button from "~/components/Button";
+import Select from "~/components/Select";
 
 export const loader = async () => {
   const allDummyGames = dummy.games;
@@ -13,26 +14,15 @@ export const loader = async () => {
 };
 
 export default function Game() {
-  const [choices, setChoices] = useState<Array<string>>(teamsData.teams);
   const [guess, setGuess] = useState<string>("");
-  const [showDropdown, setShowDropdown] = useState<boolean>(false);
   const [guesses, setGuesses] = useState<Array<string>>([]);
+  const [choices, setChoices] = useState<Array<string>>(teamsData.teams);
   const [clueNumber, setClueNumber] = useState<number>(1);
   const [status, setStatus] = useState<GameStatuses>("active");
   const gameOver = ["won", "lost"].includes(status);
   const viewingHistory = clueNumber <= guesses.length;
 
   const { clues, answer } = useLoaderData();
-
-  const handleSearch = (evt: ChangeEvent<HTMLInputElement>) => {
-    const value = evt.target.value;
-    setChoices(
-      teamsData.teams.filter((t) =>
-        t.toLowerCase().startsWith(value.toLowerCase())
-      )
-    );
-    setGuess(value);
-  };
 
   const handlePrev = () => {
     setClueNumber((oldNumber) => oldNumber - 1);
@@ -72,39 +62,15 @@ export default function Game() {
           className="flex flex-col bg-white space-y-2"
           style={{ width: 300 }}
         >
-          <input
-            className="border-gray-200 border p-1"
-            onBlur={() => setTimeout(() => setShowDropdown(false), 250)}
-            onChange={handleSearch}
-            onFocus={() => !viewingHistory && setShowDropdown(true)}
-            placeholder="Search..."
-            readOnly={viewingHistory}
+          <Select
+            choices={choices}
+            disableOpen={viewingHistory}
+            filterFn={(value, choice) =>
+              choice.toLowerCase().startsWith(value.toLowerCase()) && !guesses.includes(choice)
+            }
+            onSelect={setGuess}
             value={viewingHistory ? guesses[clueNumber - 1] : guess}
           />
-          {showDropdown && (
-            <div className="relative">
-              <div
-                className="absolute rounded border border-gray-200 divide-y-2 m-auto left-0 right-0 bg-white"
-                style={{ maxHeight: 300, width: 300, overflow: "auto" }}
-              >
-                {choices.reduce((result: Array<any>, c) => {
-                  if (!guesses.includes(c)) {
-                    result.push(
-                      <p
-                        key={c}
-                        className="cursor-default p-1 focus:bg-blue-100"
-                        onClick={() => setGuess(c)}
-                        tabIndex={0}
-                      >
-                        {c}
-                      </p>
-                    );
-                  }
-                  return result;
-                }, [])}
-              </div>
-            </div>
-          )}
           <div className="flex space-x-2">
             <Button
               disabled={clueNumber === 1}
@@ -136,7 +102,7 @@ export default function Game() {
             <div className="flex flex-col">
               <h3 className="text-xl">History</h3>
               {guesses.map((g, i) => (
-                <p>
+                <p key={g}>
                   {i + 1}) {g || "SKIPPED"}
                 </p>
               ))}

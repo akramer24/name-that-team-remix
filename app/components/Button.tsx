@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import { MouseEventHandler, ReactNode } from "react";
+import { MouseEventHandler, ReactNode, Ref, RefObject } from "react";
 
 type ButtonTypes = 'default' | 'primary';
 
@@ -11,12 +11,12 @@ interface ButtonProps {
   type?: ButtonTypes,
 }
 
-export default function ({ children, disabled = false, grow = false, onClick, type = 'default' }: ButtonProps) {
+export default function Button({ children, disabled = false, grow = false, onClick, type = 'default' }: ButtonProps) {
   return (
     <button
       className={
         classNames(
-          'transition disabled:text-gray-100 disabled:bg-gray-400 disabled:cursor-not-allowed',
+          'hover:transition disabled:text-gray-100 disabled:bg-gray-400 disabled:cursor-not-allowed',
           {
             'flex-1': grow,
             'bg-blue-600': type === 'primary',
